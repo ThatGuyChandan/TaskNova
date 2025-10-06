@@ -1,6 +1,1 @@
-enum TicketEvent {
-  TicketCreated = 'TicketCreated',
-  TicketUpdated = 'TicketUpdated',
-}
-
-export default TicketEvent;
+export type TicketEvent = 'TicketCreated' | 'TicketUpdated';

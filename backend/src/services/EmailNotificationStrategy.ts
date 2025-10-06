@@ -1,10 +1,10 @@
 import { injectable } from 'inversify';
-import INotificationStrategy from '../interfaces/NotificationStrategy.js';
-import TicketEvent from '../interfaces/TicketEvent.js';
+import type { NotificationStrategy } from '../interfaces/i-notification-strategy.js';
+import type { TicketEvent } from '../interfaces/TicketEvent.js';
 import { addJob } from '../config/queue.js';
 
 @injectable()
-class EmailNotificationStrategy implements INotificationStrategy {
+class EmailNotificationStrategy implements NotificationStrategy {
   sendNotification(event: TicketEvent, data: any): void {
     addJob({ event, data });
   }

@@ -1,4 +1,4 @@
-import Job from '../interfaces/Job.js';
+import type { Job } from '../interfaces/Job.js';
 
 const queue: Job[] = [];
 

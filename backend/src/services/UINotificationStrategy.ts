@@ -1,16 +1,16 @@
 import { injectable } from 'inversify';
-import INotificationStrategy from '../interfaces/NotificationStrategy.js';
-import TicketEvent from '../interfaces/TicketEvent.js';
+import type { NotificationStrategy } from '../interfaces/i-notification-strategy.js';
+import type { TicketEvent } from '../interfaces/TicketEvent.js';
 import SocketService from './SocketService.js';
 import Notification from '../models/NotificationModel.js';
 
 @injectable()
-class UINotificationStrategy implements INotificationStrategy {
+class UINotificationStrategy implements NotificationStrategy {
   async sendNotification(event: TicketEvent, data: any): Promise<void> {
     const { user, ticket } = data;
-    const message = `Ticket ${ticket.title} was ${event === TicketEvent.TicketCreated ? 'created' : 'updated'}`;
+    const message = `Ticket ${ticket.title} was ${event === 'TicketCreated' ? 'created' : 'updated'}`;
 
-    if (event === TicketEvent.TicketCreated) {
+    if (event === 'TicketCreated') {
       SocketService.emitTicketCreate(ticket.projectId.toString(), ticket);
     } else {
       SocketService.emitTicketUpdate(ticket.projectId.toString(), ticket);

@@ -4,7 +4,7 @@ import Ticket from '../models/TicketModel.js';
 import { AuthRequest } from '../middlewares/authMiddleware.js';
 import { superuserView } from '../config/superuser.js';
 import NotificationService from '../services/NotificationService.js';
-import TicketEvent from '../interfaces/TicketEvent.js';
+import type { TicketEvent } from '../interfaces/TicketEvent.js';
 import { TYPES } from '../types.js';
 
 @injectable()
@@ -17,7 +17,7 @@ class TicketController {
     try {
       const { projectId, title, description } = req.body;
       const ticket = await Ticket.create({ projectId, title, description, updatedBy: req.user._id });
-      this.notificationService.sendNotification(TicketEvent.TicketCreated, { user: req.user, ticket });
+      this.notificationService.sendNotification('TicketCreated', { user: req.user, ticket });
       res.status(201).json(ticket);
     } catch (error) {
       res.status(500).json({ message: 'Error creating ticket', error });
@@ -64,7 +64,7 @@ class TicketController {
       if (!ticket) {
         return res.status(404).json({ message: 'Ticket not found' });
       }
-      this.notificationService.sendNotification(TicketEvent.TicketUpdated, { user: req.user, ticket });
+      this.notificationService.sendNotification('TicketUpdated', { user: req.user, ticket });
       res.status(200).json(ticket);
     } catch (error) {
       res.status(500).json({ message: 'Error updating ticket', error });

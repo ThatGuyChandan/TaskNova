@@ -1,6 +1,6 @@
 import { getJob } from '../config/queue.js';
 import NodemailerEmailService from '../services/NodemailerEmailService.js';
-import TicketEvent from '../interfaces/TicketEvent.js';
+import type { TicketEvent } from '../interfaces/TicketEvent.js';
 import Notification from '../models/NotificationModel.js';
 
 const emailService = new NodemailerEmailService();
@@ -10,7 +10,7 @@ const processJob = async () => {
   if (job) {
     const { event, data } = job;
     const { user, ticket } = data;
-    const message = `Ticket ${ticket.title} was ${event === TicketEvent.TicketCreated ? 'created' : 'updated'}`;
+    const message = `Ticket ${ticket.title} was ${event === 'TicketCreated' ? 'created' : 'updated'}`;
 
     try {
       await emailService.sendOTP(user.email, message); // Reusing sendOTP for simplicity

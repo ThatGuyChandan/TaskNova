@@ -1,14 +1,14 @@
 import { injectable, inject } from 'inversify';
-import INotificationStrategy from '../interfaces/NotificationStrategy.js';
-import TicketEvent from '../interfaces/TicketEvent.js';
+import type { NotificationStrategy } from '../interfaces/i-notification-strategy.js';
+import type { TicketEvent } from '../interfaces/TicketEvent.js';
 import { isUserOnline } from '../config/onlineUsers.js';
 import { TYPES } from '../types.js';
 
 @injectable()
 class NotificationContext {
   constructor(
-    @inject(TYPES.EmailNotificationStrategy) private emailStrategy: INotificationStrategy,
-    @inject(TYPES.UINotificationStrategy) private uiStrategy: INotificationStrategy,
+    @inject(TYPES.EmailNotificationStrategy) private emailStrategy: NotificationStrategy,
+    @inject(TYPES.UINotificationStrategy) private uiStrategy: NotificationStrategy,
   ) {}
 
   sendNotification(event: TicketEvent, data: any): void {

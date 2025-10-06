@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import { Container } from "inversify";
-import IEmailService from "./interfaces/EmailService.js";
+import { IEmailService } from "./interfaces/EmailService.js";
 import NodemailerEmailService from "./services/NodemailerEmailService.js";
-import INotificationStrategy from "./interfaces/NotificationStrategy.js";
+import { NotificationStrategy } from "./interfaces/i-notification-strategy.js";
 import EmailNotificationStrategy from "./services/EmailNotificationStrategy.js";
 import UINotificationStrategy from "./services/UINotificationStrategy.js";
 import NotificationContext from "./services/NotificationContext.js";
@@ -15,8 +15,8 @@ import { TYPES } from "./types.js";
 const container = new Container();
 
 container.bind<IEmailService>(TYPES.IEmailService).to(NodemailerEmailService);
-container.bind<INotificationStrategy>(TYPES.EmailNotificationStrategy).to(EmailNotificationStrategy);
-container.bind<INotificationStrategy>(TYPES.UINotificationStrategy).to(UINotificationStrategy);
+container.bind<NotificationStrategy>(TYPES.EmailNotificationStrategy).to(EmailNotificationStrategy);
+container.bind<NotificationStrategy>(TYPES.UINotificationStrategy).to(UINotificationStrategy);
 container.bind<NotificationContext>(TYPES.NotificationContext).to(NotificationContext);
 container.bind<OTPService>(TYPES.OTPService).to(OTPService);
 container.bind<NotificationService>(TYPES.NotificationService).to(NotificationService);

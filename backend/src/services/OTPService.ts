@@ -2,7 +2,7 @@ import { injectable, inject } from 'inversify';
 import otpGenerator from 'otp-generator';
 import OTP from '../models/OTPModel.js';
 import User, { IUser } from '../models/UserModel.js';
-import IEmailService from '../interfaces/EmailService.js';
+import type { IEmailService } from '../interfaces/EmailService.js';
 import { TYPES } from '../types.js';
 
 @injectable()

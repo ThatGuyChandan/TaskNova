@@ -1,8 +1,6 @@
-import TicketEvent from './TicketEvent.js';
+import type { TicketEvent } from './TicketEvent.js';
 
-interface Job {
+export interface Job {
   event: TicketEvent;
   data: any;
 }
-
-export default Job;

@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import nodemailer from 'nodemailer';
-import IEmailService from '../interfaces/EmailService.js';
+import type { IEmailService } from '../interfaces/EmailService.js';
 
 @injectable()
 class NodemailerEmailService implements IEmailService {
