@@ -16,11 +16,13 @@ class UINotificationStrategy implements NotificationStrategy {
       SocketService.emitTicketUpdate(ticket.projectId.toString(), ticket);
     }
 
-    await Notification.create({
+    const notification = await Notification.create({
       userId: user._id,
       event,
       message,
     });
+
+    SocketService.emitNotification(user._id.toString(), notification);
   }
 }
 

@@ -15,6 +15,7 @@ class AuthController {
       await this.otpService.generateAndSendOTP(email);
       res.status(200).json({ message: 'OTP sent successfully' });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: 'Error sending OTP', error });
     }
   };

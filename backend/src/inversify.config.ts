@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { Container } from "inversify";
+import dotenv from 'dotenv';
 import { IEmailService } from "./interfaces/EmailService.js";
 import NodemailerEmailService from "./services/NodemailerEmailService.js";
 import { NotificationStrategy } from "./interfaces/i-notification-strategy.js";
@@ -11,6 +12,8 @@ import NotificationService from "./services/NotificationService.js";
 import AuthController from "./controllers/AuthController.js";
 import TicketController from "./controllers/TicketController.js";
 import { TYPES } from "./types.js";
+
+dotenv.config();
 
 const container = new Container();
 

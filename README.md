@@ -1,6 +1,28 @@
-# Ticket Dashboard Backend
+# Ticket Dashboard Application
 
-This is the backend for a ticket dashboard application. It is built with Node.js, Express, and TypeScript.
+This is a full-stack ticket dashboard application with real-time updates, built with Node.js, Express, TypeScript, React, and Socket.IO.
+
+## Tech Stack
+
+**Backend:**
+*   Node.js
+*   Express
+*   TypeScript
+*   MongoDB (Mongoose)
+*   Socket.IO
+*   Nodemailer
+*   InversifyJS (Dependency Injection)
+
+**Frontend:**
+*   React
+*   TypeScript
+*   Vite
+*   Redux Toolkit
+*   React Router
+*   Axios
+*   Socket.IO Client
+*   Tailwind CSS
+*   react-beautiful-dnd
 
 ## Setup Instructions
 
@@ -8,15 +30,22 @@ This is the backend for a ticket dashboard application. It is built with Node.js
     ```bash
     git clone <repository-url>
     ```
-2.  **Navigate to the backend directory:**
+2.  **Navigate to the project root directory:**
+    ```bash
+    cd "Ticket Dashboard"
+    ```
+
+### Backend Setup
+
+1.  **Navigate to the backend directory:**
     ```bash
     cd backend
     ```
-3.  **Install dependencies:**
+2.  **Install dependencies:**
     ```bash
     npm install
     ```
-4.  **Create a `.env` file:**
+3.  **Create a `.env` file:**
     Create a `.env` file in the `backend` directory and add the following environment variables:
     ```
     MONGO_URI=<your-mongodb-uri>
@@ -27,7 +56,22 @@ This is the backend for a ticket dashboard application. It is built with Node.js
     JWT_EXPIRES_IN=<your-jwt-expires-in>
     SUPERUSER_PASSWORD=<your-superuser-password>
     ```
-5.  **Start the development server:**
+4.  **Start the development server:**
+    ```bash
+    npm run dev
+    ```
+
+### Frontend Setup
+
+1.  **Navigate to the frontend directory:**
+    ```bash
+    cd frontend
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Start the development server:**
     ```bash
     npm run dev
     ```
@@ -35,85 +79,103 @@ This is the backend for a ticket dashboard application. It is built with Node.js
 ## Folder Structure
 
 ```
-backend/
-├── src/
-│   ├── config/
-│   │   ├── database.ts
-│   │   ├── onlineUsers.ts
-│   │   ├── queue.ts
-│   │   └── superuser.ts
-│   ├── controllers/
-│   │   ├── AuthController.ts
-│   │   ├── ProjectController.ts
-│   │   ├── SuperuserController.ts
-│   │   └── TicketController.ts
-│   ├── interfaces/
-│   │   ├── EmailService.ts
-│   │   ├── Job.ts
-│   │   ├── NotificationStrategy.ts
-│   │   └── TicketEvent.ts
-│   ├── middlewares/
-│   │   ├── authMiddleware.ts
-│   │   └── superuserMiddleware.ts
-│   ├── models/
-│   │   ├── NotificationModel.ts
-│   │   ├── OTPModel.ts
-│   │   ├── ProjectModel.ts
-│   │   ├── TicketModel.ts
-│   │   └── UserModel.ts
-│   ├── routes/
-│   │   ├── AuthRoutes.ts
-│   │   ├── ProjectRoutes.ts
-│   │   ├── SuperuserRoutes.ts
-│   │   └── TicketRoutes.ts
-│   ├── services/
-│   │   ├── EmailNotificationStrategy.ts
-│   │   ├── NodemailerEmailService.ts
-│   │   ├── NotificationContext.ts
-│   │   ├── NotificationService.ts
-│   │   ├── OTPService.ts
-│   │   ├── SocketService.ts
-│   │   └── UINotificationStrategy.ts
-│   ├── workers/
-│   │   └── emailWorker.ts
-│   ├── app.ts
-│   ├── inversify.config.ts
-│   ├── server.ts
-│   └── types.ts
-├── .env
-├── .eslintrc.js
-├── .prettierrc.json
-├── nodemon.json
-├── package.json
-└── tsconfig.json
+. (project root)
+├── backend/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── interfaces/
+│   │   ├── middlewares/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── workers/
+│   │   ├── app.ts
+│   │   ├── inversify.config.ts
+│   │   ├── server.ts
+│   │   └── types.ts
+│   ├── .env
+│   ├── .eslintrc.js
+│   ├── .prettierrc.json
+│   ├── nodemon.json
+│   ├── package.json
+│   └── tsconfig.json
+├── frontend/
+│   ├── src/
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── redux/
+│   │   ├── hooks/
+│   │   ├── interfaces/
+│   │   ├── utils/
+│   │   ├── App.tsx
+│   │   ├── main.tsx
+│   │   └── index.css
+│   ├── index.html
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   └── tsconfig.json
+└── README.md
 ```
 
-## API Endpoints
+## Available Scripts
+
+### Backend
+
+*   `npm install`: Install backend dependencies.
+*   `npm run dev`: Start the backend development server (with nodemon).
+*   `npm run build`: Build the backend for production.
+
+### Frontend
+
+*   `npm install --prefix frontend`: Install frontend dependencies.
+*   `npm run dev --prefix frontend`: Start the frontend development server.
+*   `npm run build --prefix frontend`: Build the frontend for production.
+
+## API Integration Points
+
+The frontend interacts with the backend through the following API endpoints:
 
 ### Authentication
 
-*   `POST /api/auth/send-otp`: Send an OTP to the user's email.
-*   `POST /api/auth/verify-otp`: Verify the OTP and get a JWT.
+*   `POST /api/auth/send-otp`: Sends a 6-digit OTP to the provided email address.
+*   `POST /api/auth/verify-otp`: Verifies the OTP and returns a JWT upon successful verification.
 
 ### Projects
 
-*   `POST /api/projects`: Create a new project.
-*   `GET /api/projects`: Get a list of projects for the logged-in user.
-*   `GET /api/projects/:projectId`: Get a project by its ID.
-*   `PUT /api/projects/:projectId`: Update a project.
-*   `DELETE /api/projects/:projectId`: Delete a project.
+*   `POST /api/projects`: Creates a new project. (Requires JWT)
+*   `GET /api/projects`: Retrieves all projects associated with the authenticated user. (Requires JWT)
+*   `GET /api/projects/:projectId`: Retrieves a specific project by ID. (Requires JWT)
+*   `PUT /api/projects/:projectId`: Updates an existing project. (Requires JWT)
+*   `DELETE /api/projects/:projectId`: Deletes a project. (Requires JWT)
 
 ### Tickets
 
-*   `POST /api/projects/:projectId/tickets`: Create a new ticket for a project.
-*   `GET /api/projects/:projectId/tickets`: Get a list of tickets for a project.
-*   `GET /api/projects/:projectId/tickets/:id`: Get a ticket by its ID.
-*   `PUT /api/projects/:projectId/tickets/:id`: Update a ticket's status or description.
-*   `DELETE /api/projects/:projectId/tickets/:id`: Delete a ticket.
+*   `POST /api/projects/:projectId/tickets`: Creates a new ticket within a specified project. (Requires JWT)
+*   `GET /api/projects/:projectId/tickets`: Retrieves all tickets for a specified project. (Requires JWT)
+*   `GET /api/projects/:projectId/tickets/:id`: Retrieves a specific ticket by ID. (Requires JWT)
+*   `PUT /api/projects/:projectId/tickets/:id`: Updates a specific ticket. (Requires JWT)
+*   `DELETE /api/projects/:projectId/tickets/:id`: Deletes a specific ticket. (Requires JWT)
 
 ### Superuser
 
-*   `POST /api/superuser/toggle`: Toggle the superuser view.
+*   `POST /api/superuser/toggle`: Toggles the superuser view mode, requiring a password from the backend's `.env` file. (Requires JWT and superuser privileges)
+
+## Real-time Socket Flow
+
+The application uses Socket.IO for real-time updates, ensuring that changes made by one user are instantly reflected for others viewing the same project.
+
+1.  **Connection:** Frontend clients connect to the Socket.IO server, providing their `userId` for authentication.
+2.  **Joining Projects:** Clients emit a `joinProject` event with a `projectId` to subscribe to updates for that specific project.
+3.  **Ticket Updates:**
+    *   When a ticket is created or updated via the REST API, the backend emits `ticketCreated` or `ticketUpdated` events to all clients in the relevant project room.
+    *   The frontend listens for these events and dispatches Redux actions (`addTicket`, `updateTicketInList`) to update the local state.
+4.  **Notifications:**
+    *   The backend emits a `notification` event to a specific `userId` when a relevant event occurs (e.g., a ticket update).
+    *   The frontend listens for these `notification` events and dispatches a Redux action (`addNotification`) to display the notification.
+5.  **Offline Notifications:** For offline users, notifications are sent via email using a background worker.
 
 ## Design Pattern Explanation
 
@@ -121,7 +183,7 @@ backend/
 
 The Strategy pattern is used for the notification system. This pattern allows us to define a family of algorithms, put each of them into a separate class, and make their objects interchangeable.
 
-*   **`INotificationStrategy`:** This interface defines the `sendNotification` method that all concrete strategies must implement.
+*   **`NotificationStrategy`:** This interface defines the `sendNotification` method that all concrete strategies must implement.
 *   **`EmailNotificationStrategy`:** This is a concrete strategy that sends notifications via email.
 *   **`UINotificationStrategy`:** This is a concrete strategy that sends notifications via Socket.IO.
 *   **`NotificationContext`:** This class uses a concrete strategy to send notifications. It selects the strategy based on the user's online/offline state.

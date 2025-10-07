@@ -8,17 +8,19 @@ class NodemailerEmailService implements IEmailService {
 
   constructor() {
     this.transporter = nodemailer.createTransport({
-      service: process.env.EMAIL_SERVICE,
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.EMAIL_USER?.trim(),
+        pass: process.env.EMAIL_PASS?.trim(),
       },
     });
   }
 
   async sendOTP(email: string, otp: string): Promise<void> {
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: `"FluxBoard" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: 'Your OTP for Login',
       text: `Your OTP is ${otp}`,
