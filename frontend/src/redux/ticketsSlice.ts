@@ -34,7 +34,7 @@ const ticketsSlice = createSlice({
       state.tickets.push(action.payload);
     },
     updateTicketInList: (state, action: PayloadAction<any>) => {
-      const index = state.tickets.findIndex((ticket) => ticket.id === action.payload.id);
+      const index = state.tickets.findIndex((ticket) => ticket._id === action.payload._id);
       if (index !== -1) {
         state.tickets[index] = action.payload;
       }
@@ -56,7 +56,7 @@ const ticketsSlice = createSlice({
         state.tickets.push(action.payload);
       })
       .addCase(updateTicket.fulfilled, (state, action) => {
-        const index = state.tickets.findIndex((ticket) => ticket.id === action.payload.id);
+        const index = state.tickets.findIndex((ticket) => ticket._id === action.payload._id);
         if (index !== -1) {
           state.tickets[index] = action.payload;
         }

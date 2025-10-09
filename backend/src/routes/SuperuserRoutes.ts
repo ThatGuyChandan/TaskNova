@@ -5,6 +5,6 @@ import { superuser } from '../middlewares/superuserMiddleware.js';
 
 const router = Router();
 
-router.post('/toggle', protect, superuser, toggle);
+router.post('/toggle', protect, toggle);
 
 export default router;

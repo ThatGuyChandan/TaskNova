@@ -13,7 +13,7 @@ const processJob = async () => {
     const message = `Ticket ${ticket.title} was ${event === 'TicketCreated' ? 'created' : 'updated'}`;
 
     try {
-      await emailService.sendOTP(user.email, message); // Reusing sendOTP for simplicity
+      await emailService.sendNotification(user.email, 'Ticket Update Notification', message);
       await Notification.create({
         userId: user._id,
         event,

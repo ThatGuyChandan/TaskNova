@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { injectable, inject } from 'inversify';
 import Ticket from '../models/TicketModel.js';
 import { AuthRequest } from '../middlewares/authMiddleware.js';
-import { superuserView } from '../config/superuser.js';
+import { superuserState } from '../config/superuser.js';
 import NotificationService from '../services/NotificationService.js';
 import type { TicketEvent } from '../interfaces/TicketEvent.js';
 import { TYPES } from '../types.js';
@@ -15,8 +15,8 @@ class TicketController {
 
   createTicket = async (req: AuthRequest, res: Response) => {
     try {
-      const { projectId, title, description } = req.body;
-      const ticket = await Ticket.create({ projectId, title, description, updatedBy: req.user._id });
+      const { projectId, title, description, status } = req.body;
+      const ticket = await Ticket.create({ projectId, title, description, status, createdBy: req.user._id, updatedBy: req.user._id });
       this.notificationService.sendNotification('TicketCreated', { user: req.user, ticket });
       res.status(201).json(ticket);
     } catch (error) {
@@ -27,8 +27,8 @@ class TicketController {
   getTickets = async (req: AuthRequest, res: Response) => {
     try {
       let ticketsQuery = Ticket.find({ projectId: req.params.projectId });
-      if (superuserView) {
-        ticketsQuery = ticketsQuery.populate('updatedBy', 'email');
+      if (superuserState.view) {
+        ticketsQuery = ticketsQuery.populate('createdBy', 'email').populate('updatedBy', 'email');
       }
       const tickets = await ticketsQuery;
       res.status(200).json(tickets);
@@ -40,8 +40,8 @@ class TicketController {
   getTicketById = async (req: AuthRequest, res: Response) => {
     try {
       let ticketQuery = Ticket.findById(req.params.id);
-      if (superuserView) {
-        ticketQuery = ticketQuery.populate('updatedBy', 'email');
+      if (superuserState.view) {
+        ticketQuery = ticketQuery.populate('createdBy', 'email').populate('updatedBy', 'email');
       }
       const ticket = await ticketQuery;
       if (!ticket) {

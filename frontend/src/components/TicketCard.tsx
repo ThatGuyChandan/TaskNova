@@ -1,26 +1,27 @@
 import { useSelector } from 'react-redux';
 import { Draggable } from '@hello-pangea/dnd';
+import styles from './TicketCard.module.css';
 
 const TicketCard = ({ ticket, index }) => {
   const { superUserToggle } = useSelector((state) => state.ui);
 
   return (
-    <Draggable draggableId={ticket.id} index={index}>
+    <Draggable draggableId={ticket._id} index={index}>
       {(provided) => (
         <div
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          style={{ backgroundColor: 'white', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1rem', boxShadow: '0 4px 6px rgba(0, 0,0, 0.1)' }}
+          className={styles.card}
         >
-          <h3 style={{ fontWeight: 'bold' }}>{ticket.title}</h3>
-          <ul style={{ listStyleType: 'disc', marginLeft: '1.25rem' }}>
-            {ticket.description.split('\n').map((line, index) => (
-              <li key={index}>{line}</li>
+          <h3 className={styles.title}>{ticket.title}</h3>
+          <ul className={styles.description}>
+            {ticket.description.split('\n').map((line, i) => (
+              <li key={i}>{line}</li>
             ))}
           </ul>
           {superUserToggle && (
-            <div style={{ marginTop: '1rem', fontSize: '0.75rem', color: '#a0aec0' }}>
+            <div className={styles.superuserInfo}>
               <p>Created by: {ticket.createdBy?.email}</p>
               <p>Updated by: {ticket.updatedBy?.email}</p>
             </div>

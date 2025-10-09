@@ -1,5 +1,7 @@
-export let superuserView = false;
+export const superuserState = {
+  view: false,
+};
 
-export const toggleSuperuserView = () => {
-  superuserView = !superuserView;
+export const setSuperuserView = (newState: boolean) => {
+  superuserState.view = newState;
 };

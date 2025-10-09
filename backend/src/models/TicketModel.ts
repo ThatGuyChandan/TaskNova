@@ -4,7 +4,8 @@ interface ITicket {
   projectId: Types.ObjectId;
   title: string;
   description: string;
-  status: 'open' | 'inprogress' | 'closed';
+  status: 'Proposed' | 'To-Do' | 'In-Progress' | 'Done' | 'Deployed';
+  createdBy: Types.ObjectId;
   updatedBy: Types.ObjectId;
 }
 
@@ -15,9 +16,10 @@ const ticketSchema = new Schema<ITicket>(
     description: { type: String },
     status: {
       type: String,
-      enum: ['open', 'inprogress', 'closed'],
-      default: 'open',
+      enum: ['Proposed', 'To-Do', 'In-Progress', 'Done', 'Deployed'],
+      default: 'Proposed',
     },
+    createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
     updatedBy: { type: Schema.Types.ObjectId, ref: 'User' },
   },
   { timestamps: true },

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProjects, setActiveProject } from '../redux/projectsSlice';
+import styles from './Sidebar.module.css';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -15,45 +16,53 @@ const Sidebar = () => {
   };
 
   return (
-    <div style={{ width: '16rem', backgroundColor: 'white', boxShadow: '0 4px 6px rgba(0, 0,0, 0.1)' }}>
-      <div style={{ padding: '1rem' }}>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Cognito</h1>
+    <aside className={styles.sidebar}>
+      {/* Brand */}
+      <div className={styles.brand}>
+        <span className={styles.brandIcon} />
+        <span className={styles.brandName}>Cognito</span>
       </div>
-      <nav style={{ marginTop: '1.25rem' }}>
-        <input
-          type="text"
-          placeholder="Search"
-          style={{ display: 'block', padding: '0.625rem 1rem', borderRadius: '0.25rem', transition: 'all 0.2s', color: '#4a5568', width: '100%' }}
-          onChange={(e) => console.log('Search query:', e.target.value)}
-        />
-        <button
-          style={{ display: 'block', padding: '0.625rem 1rem', borderRadius: '0.25rem', transition: 'all 0.2s', color: '#4a5568', width: '100%', textAlign: 'left' }}
-          onClick={() => console.log('Settings button clicked')}
-        >
-          Settings
+      {/* Search & Settings */}
+      <div className={styles.navSection}>
+        <button className={styles.navButton}>
+          <span role="img" aria-label="search">🔍</span> Search
         </button>
-      </nav>
-      <div style={{ marginTop: '2rem' }}>
-        <h2 style={{ paddingLeft: '1rem', fontSize: '0.75rem', textTransform: 'uppercase', fontWeight: 'bold', color: '#a0aec0' }}>Projects</h2>
-        {projects.map((project) => (
-          <a
-            key={project.id}
-            href="#"
-            style={{
-              display: 'block',
-              padding: '0.625rem 1rem',
-              borderRadius: '0.25rem',
-              transition: 'all 0.2s',
-              color: activeProject?.id === project.id ? '#4299e1' : '#4a5568',
-              backgroundColor: activeProject?.id === project.id ? '#ebf8ff' : 'transparent',
-            }}
-            onClick={() => handleProjectClick(project)}
-          >
-            {project.name}
-          </a>
-        ))}
+        <button className={styles.navButton}>
+          <span role="img" aria-label="settings">⚙️</span> Settings
+        </button>
       </div>
-    </div>
+      {/* Favorites */}
+      <div className={styles.sectionTitle}>
+        Favorites
+      </div>
+      <div className={styles.favoritesList}>
+        <div className={styles.favoriteTeam}>Team</div>
+        <div className={styles.favoriteProjects}>
+          {/* Example static favorite projects */}
+          <div className={styles.favoriteProject}>Project 1</div>
+          <div className={styles.favoriteProject}>Project 2</div>
+        </div>
+      </div>
+      {/* Projects List */}
+      <div className={styles.sectionTitle}>
+        Projects
+      </div>
+      <nav className={styles.projectsNav}>
+        {projects.length > 0 ? (
+          projects.map((project) => (
+            <button
+              key={project._id}
+              className={`${styles.projectButton} ${activeProject?._id === project._id ? styles.activeProject : styles.inactiveProject}`}
+              onClick={() => handleProjectClick(project)}
+            >
+              {project.name}
+            </button>
+          ))
+        ) : (
+          <div className={styles.noProjects}>No projects yet.</div>
+        )}
+      </nav>
+    </aside>
   );
 };
 

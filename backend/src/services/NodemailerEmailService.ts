@@ -18,6 +18,17 @@ class NodemailerEmailService implements IEmailService {
     });
   }
 
+  async sendNotification(email: string, subject: string, message: string): Promise<void> {
+    const mailOptions = {
+      from: `"FluxBoard" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: subject,
+      text: message,
+    };
+
+    await this.transporter.sendMail(mailOptions);
+  }
+
   async sendOTP(email: string, otp: string): Promise<void> {
     const mailOptions = {
       from: `"FluxBoard" <${process.env.EMAIL_USER}>`,

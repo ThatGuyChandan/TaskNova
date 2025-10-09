@@ -15,18 +15,18 @@ const Dashboard = () => {
   const { activeProject } = useSelector((state) => state.projects);
   const { newProjectModal, newTicketModal } = useSelector((state) => state.ui);
 
-  useSocket(user?.id, activeProject?.id);
+  useSocket(user?._id, activeProject?._id);
 
   return (
     <Layout>
-      <Sidebar />
-      <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+      <Sidebar key="sidebar" />
+      <div key="main-content" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
         <Topbar />
-        <KanbanBoard />
+        <KanbanBoard activeProject={activeProject} />
       </div>
       <SuperuserModal />
       <NewProjectModal isOpen={newProjectModal} onClose={() => dispatch(toggleNewProjectModal())} />
-      <NewTicketModal isOpen={newTicketModal} onClose={() => dispatch(toggleNewTicketModal())} projectId={activeProject?.id} />
+      <NewTicketModal isOpen={newTicketModal} onClose={() => dispatch(toggleNewTicketModal())} projectId={activeProject?._id} />
     </Layout>
   );
 };

@@ -3,14 +3,16 @@ import { Schema, model, Types } from 'mongoose';
 interface IProject {
   name: string;
   description: string;
-  createdBy: Types.ObjectId;
+  user: Types.ObjectId;
+  members: Types.ObjectId[];
 }
 
 const projectSchema = new Schema<IProject>(
   {
     name: { type: String, required: true },
     description: { type: String },
-    createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    members: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   },
   { timestamps: true },
 );

@@ -1,9 +1,24 @@
 import React from 'react';
+import styles from './Layout.module.css';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div style={{ display: 'flex', height: '100vh', backgroundColor: '#f7fafc' }}>
-      {children}
+    <div className={styles.layout}>
+      {/* Sidebar (fixed width) */}
+      <div className={styles.sidebar}>
+        {/* Sidebar children will be rendered by Sidebar component */}
+        {children[0]}
+        {/* Support button at the bottom */}
+        <div className={styles.supportButtonContainer}>
+          <button className={styles.supportButton}>Support</button>
+        </div>
+      </div>
+      {/* Main content area */}
+      <div className={styles.mainContent}>
+        {children[1]}
+        {/* Modals and overlays come after main content */}
+        {children.slice(2)}
+      </div>
     </div>
   );
 };

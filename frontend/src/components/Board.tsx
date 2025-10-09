@@ -3,6 +3,7 @@ import { DragDropContext } from '@hello-pangea/dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTickets, updateTicket } from '../redux/ticketsSlice';
 import Column from './Column';
+import styles from './Kanban.module.css';
 
 const Board = () => {
   const dispatch = useDispatch();
@@ -10,28 +11,30 @@ const Board = () => {
   const { tickets: allTickets, loading } = useSelector((state) => state.tickets);
   const [tickets, setTickets] = useState({
     Proposed: [],
-    Todo: [],
-    Inprogress: [],
+    'To-Do': [],
+    'In-Progress': [],
     Done: [],
     Deployed: [],
   });
 
   useEffect(() => {
     if (activeProject) {
-      dispatch(fetchTickets(activeProject.id));
+      dispatch(fetchTickets(activeProject._id));
     }
   }, [activeProject, dispatch]);
 
   useEffect(() => {
     const newTickets = {
       Proposed: [],
-      Todo: [],
-      Inprogress: [],
+      'To-Do': [],
+      'In-Progress': [],
       Done: [],
       Deployed: [],
     };
     allTickets.forEach((ticket) => {
-      newTickets[ticket.status].push(ticket);
+      if (newTickets[ticket.status]) {
+        newTickets[ticket.status].push(ticket);
+      }
     });
     setTickets(newTickets);
   }, [allTickets]);
@@ -71,14 +74,14 @@ const Board = () => {
         [destination.droppableId]: endTickets,
       });
 
-      dispatch(updateTicket({ ...removed, status: destination.droppableId, projectId: activeProject.id }));
+      dispatch(updateTicket({ ...removed, status: destination.droppableId, projectId: activeProject._id }));
     }
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div style={{ display: 'flex', flex: 1, padding: '1rem', gap: '1rem' }}>
-        {Object.keys(tickets).map((columnId) => (
+      <div className={styles.board}>
+        {['Proposed', 'To-Do', 'In-Progress', 'Done', 'Deployed'].map((columnId) => (
           <Column key={columnId} columnId={columnId} tickets={tickets[columnId]} />
         ))}
       </div>

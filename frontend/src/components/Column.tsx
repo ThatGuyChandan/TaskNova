@@ -2,29 +2,44 @@ import { Droppable } from '@hello-pangea/dnd';
 import { useDispatch } from 'react-redux';
 import TicketCard from './TicketCard';
 import { toggleNewTicketModal } from '../redux/uiSlice';
+import styles from './Kanban.module.css';
+
+const columnMeta = {
+  Proposed: { color: 'bg-pink-100 text-pink-600' },
+  'To-Do': { color: 'bg-purple-100 text-purple-600' },
+  'In-Progress': { color: 'bg-cyan-100 text-cyan-600' },
+  Done: { color: 'bg-green-100 text-green-600' },
+  Deployed: { color: 'bg-yellow-100 text-yellow-600' },
+};
 
 const Column = ({ columnId, tickets }) => {
   const dispatch = useDispatch();
+  const meta = columnMeta[columnId] || { color: 'bg-gray-100 text-gray-500' };
 
   return (
-    <div style={{ width: '20%', backgroundColor: '#e2e8f0', borderRadius: '0.5rem', padding: '1rem' }}>
-      <h2 style={{ fontWeight: 'bold', fontSize: '1.125rem', marginBottom: '1rem' }}>{columnId}</h2>
+    <div className={styles.column}>
+      <div className={styles['column-header']}>
+        <span className={`${styles.columnTitleText} ${meta.color}`}>{columnId} <span className={styles.ticketCount}>({tickets.length})</span></span>
+        <button className={styles.newTicketButton} onClick={() => dispatch(toggleNewTicketModal(columnId))}>+ New</button>
+      </div>
       <Droppable droppableId={columnId}>
         {(provided) => (
-          <div {...provided.droppableProps} ref={provided.innerRef} style={{ minHeight: '600px' }}>
-            {tickets.map((ticket, index) => (
-              <TicketCard key={ticket.id} ticket={ticket} index={index} />
-            ))}
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className={styles.droppableArea}
+          >
+            {tickets.length > 0 ? (
+              tickets.map((ticket, index) => (
+                <TicketCard key={ticket._id} ticket={ticket} index={index} />
+              ))
+            ) : (
+              <div className={styles.emptyState}>No tickets yet.</div>
+            )}
             {provided.placeholder}
           </div>
         )}
       </Droppable>
-      <button
-        style={{ marginTop: '1rem', backgroundColor: '#4299e1', color: 'white', fontWeight: 'bold', padding: '0.5rem 1rem', borderRadius: '0.25rem', cursor: 'pointer' }}
-        onClick={() => dispatch(toggleNewTicketModal())}
-      >
-        + New
-      </button>
     </div>
   );
 };

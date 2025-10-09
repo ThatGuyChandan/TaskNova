@@ -1,0 +1,81 @@
+.board {
+  display: flex;
+  flex: 1;
+  padding: 2rem;
+  gap: 1.5rem;
+  overflow-x: auto;
+  background: #f9fafb;
+  min-height: 100vh;
+}
+
+.column {
+  width: 20rem;
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+  border: 1px solid #e5e7eb;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 0.25rem;
+}
+
+.column-title-text {
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.375rem;
+  letter-spacing: 0.025em;
+  display: inline-block;
+}
+
+.ticketCount {
+  margin-left: 0.5rem;
+  color: #9ca3af;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.newTicketButton {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.375rem;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.newTicketButton:hover {
+  background: #e5e7eb;
+  color: #4b5563;
+}
+
+.droppableArea {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 60px;
+  flex-grow: 1;
+}
+
+.emptyState {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  background: #f9fafb;
+  margin-top: 1rem;
+  border: 1px dashed #d1d5db;
+}
