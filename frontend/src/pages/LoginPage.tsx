@@ -34,6 +34,8 @@ const LoginPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
+        <div className={styles.logo}>🔒</div>
+        <div className={styles.title}>TaskNova Login</div>
         {step === 1 ? (
           <>
             <div className={styles.formGroup}>
