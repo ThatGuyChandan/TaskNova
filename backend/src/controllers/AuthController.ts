@@ -26,9 +26,11 @@ class AuthController {
       const user = await this.otpService.verifyOTP(email, otp);
 
       if (user) {
-        const payload = { id: user._id, isSuperUser: user.isSuperUser };
-        const options = { expiresIn: process.env.JWT_EXPIRES_IN || '1d' };
-        const token = jwt.sign(payload, process.env.JWT_SECRET!, options);
+        const token = jwt.sign(
+          { id: user._id, isSuperUser: user.isSuperUser },
+          process.env.JWT_SECRET as string,
+          { expiresIn: (process.env.JWT_EXPIRES_IN || "1h") as jwt.SignOptions["expiresIn"] }
+        );
         res.status(200).json({ message: 'OTP verified successfully', token });
       } else {
         res.status(400).json({ message: 'Invalid OTP' });
