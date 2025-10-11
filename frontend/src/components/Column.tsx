@@ -5,21 +5,21 @@ import { toggleNewTicketModal } from '../redux/uiSlice';
 import styles from './Kanban.module.css';
 
 const columnMeta = {
-  Proposed: { color: 'bg-pink-100 text-pink-600' },
-  'To-Do': { color: 'bg-purple-100 text-purple-600' },
-  'In-Progress': { color: 'bg-cyan-100 text-cyan-600' },
-  Done: { color: 'bg-green-100 text-green-600' },
-  Deployed: { color: 'bg-yellow-100 text-yellow-600' },
+  Proposed: { className: styles.backlog },
+  'To-Do': { className: styles.todo },
+  'In-Progress': { className: styles.inProgress },
+  Done: { className: styles.done },
+  Deployed: { className: styles.cancelled },
 };
 
 const Column = ({ columnId, tickets }) => {
   const dispatch = useDispatch();
-  const meta = columnMeta[columnId] || { color: 'bg-gray-100 text-gray-500' };
+  const meta = columnMeta[columnId] || { className: styles.backlog };
 
   return (
     <div className={styles.column}>
       <div className={styles['column-header']}>
-        <span className={`${styles.columnTitleText} ${meta.color}`}>{columnId} <span className={styles.ticketCount}>({tickets.length})</span></span>
+        <span className={`${styles.columnTitleText} ${meta.className}`}>{columnId} <span className={styles.ticketCount}>({tickets.length})</span></span>
         <button className={styles.newTicketButton} onClick={() => dispatch(toggleNewTicketModal(columnId))}>+ New</button>
       </div>
       <Droppable droppableId={columnId}>

@@ -6,21 +6,24 @@ import styles from './Topbar.module.css';
 
 const Topbar = () => {
   const dispatch = useDispatch();
-  const { superUserToggle } = useSelector((state) => state.ui);
+  const { user } = useSelector((state) => state.auth);
+  const { activeProject } = useSelector((state) => state.projects);
   const [showNotifications, setShowNotifications] = useState(false);
 
   return (
     <header className={styles.topbar}>
-      <div className={styles.title}>Page Title</div>
+      <div className={styles.title}>{activeProject?.name || 'Dashboard'}</div>
       <div className={styles.actions}>
         <button className={styles.newProjectButton} onClick={() => dispatch(toggleNewProjectModal())}>+ New Project</button>
-        <button className={styles.button}>Filter</button>
-        <button className={styles.button}>Sort</button>
-        <button className={styles.button}>Options</button>
-        <button className={styles.iconButton}>
-          <span role="img" aria-label="bell">🔔</span>
-        </button>
-        <button className={styles.superuserButton} onClick={() => dispatch(toggleSuperuserModal())}>Superuser</button>
+        <div style={{ position: 'relative' }}>
+          <button className={styles.iconButton} onClick={() => setShowNotifications(!showNotifications)}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          </button>
+          <NotificationDropdown show={showNotifications} />
+        </div>
+        {user?.isSuperUser && (
+          <button className={styles.superuserButton} onClick={() => dispatch(toggleSuperuserModal())}>Superuser</button>
+        )}
       </div>
     </header>
   );

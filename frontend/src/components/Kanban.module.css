@@ -37,6 +37,31 @@
   display: inline-block;
 }
 
+.backlog {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.todo {
+  background-color: #ffedd5;
+  color: #9a3412;
+}
+
+.in-progress {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.done {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.cancelled {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
 .ticketCount {
   margin-left: 0.5rem;
   color: #9ca3af;

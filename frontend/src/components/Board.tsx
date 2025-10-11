@@ -78,6 +78,15 @@ const Board = () => {
     }
   };
 
+  if (!activeProject) {
+    return (
+      <div className={styles.emptyState}>
+        <h2>No project selected</h2>
+        <p>Please select a project from the sidebar to view the board.</p>
+      </div>
+    );
+  }
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.board}>

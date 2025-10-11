@@ -11,9 +11,11 @@ export const useSocket = (userId: string, projectId: string) => {
     if (!userId || !projectId) return;
 
     socket.auth = { userId };
-    socket.connect();
+    socket.on('connect', () => {
+      socket.emit('joinProject', projectId);
+    });
 
-    socket.emit('joinProject', projectId);
+    socket.connect();
 
     const onTicketCreated = (ticket) => {
       dispatch(addTicket(ticket));

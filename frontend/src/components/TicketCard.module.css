@@ -8,6 +8,19 @@
   cursor: pointer;
   transition: box-shadow .15s, border .15s;
   font-family: inherit;
+  border-left-width: 4px;
+}
+
+.priority-low {
+  border-left-color: #34d399;
+}
+
+.priority-medium {
+  border-left-color: #fbb_f24;
+}
+
+.priority-high {
+  border-left-color: #ef4444;
 }
 
 .card:hover {

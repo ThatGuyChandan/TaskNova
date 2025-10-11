@@ -8,11 +8,14 @@ import { startWorker } from './workers/emailWorker.js';
 
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: { origin: process.env.CORS_ORIGIN || '*' },
+});
 
 io.on('connection', (socket) => {
-  const userId = socket.handshake.query.userId as string;
+  const userId = socket.handshake.auth.userId as string;
   if (userId) {
+    socket.join(userId);
     addUser(userId);
     console.log(`user ${userId} connected`);
   }

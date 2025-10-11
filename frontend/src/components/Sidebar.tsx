@@ -20,28 +20,18 @@ const Sidebar = () => {
       {/* Brand */}
       <div className={styles.brand}>
         <span className={styles.brandIcon} />
-        <span className={styles.brandName}>Cognito</span>
+        <span className={styles.brandName}>FluxBoard</span>
       </div>
       {/* Search & Settings */}
       <div className={styles.navSection}>
         <button className={styles.navButton}>
-          <span role="img" aria-label="search">🔍</span> Search
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          Search
         </button>
         <button className={styles.navButton}>
-          <span role="img" aria-label="settings">⚙️</span> Settings
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-4.44a2 2 0 0 0-2 2v.78a2 2 0 0 1-.67 1.5l-4.24 5.1a2 2 0 0 0-.22 1.84l1.94 6.83a2 2 0 0 0 1.94 1.45h12.8a2 2 0 0 0 1.94-1.45l1.94-6.83a2 2 0 0 0-.22-1.84l-4.24-5.1a2 2 0 0 1-.67-1.5V4a2 2 0 0 0-2-2zm-2.13 9.17a2.5 2.5 0 1 1 0-4.34 2.5 2.5 0 0 1 0 4.34z"></path></svg>
+          Settings
         </button>
-      </div>
-      {/* Favorites */}
-      <div className={styles.sectionTitle}>
-        Favorites
-      </div>
-      <div className={styles.favoritesList}>
-        <div className={styles.favoriteTeam}>Team</div>
-        <div className={styles.favoriteProjects}>
-          {/* Example static favorite projects */}
-          <div className={styles.favoriteProject}>Project 1</div>
-          <div className={styles.favoriteProject}>Project 2</div>
-        </div>
       </div>
       {/* Projects List */}
       <div className={styles.sectionTitle}>

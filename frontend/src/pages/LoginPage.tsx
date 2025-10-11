@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../api/axios';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../redux/authSlice';
+import styles from './LoginPage.module.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -31,16 +32,16 @@ const LoginPage = () => {
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <div style={{ width: '100%', maxWidth: '400px' }}>
+    <div className={styles.container}>
+      <div className={styles.formContainer}>
         {step === 1 ? (
-          <div style={{ backgroundColor: 'white', boxShadow: '0 4px 6px rgba(0, 0,0, 0.1)', borderRadius: '0.5rem', padding: '1.5rem' }}>
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', color: '#4a5568', fontSize: '0.875rem', fontWeight: 'bold', marginBottom: '0.5rem' }} htmlFor="email">
+          <>
+            <div className={styles.formGroup}>
+              <label className={styles.label} htmlFor="email">
                 Email
               </label>
               <input
-                style={{ boxShadow: '0 1px 3px rgba(0, 0,0, 0.1)', appearance: 'none', border: '1px solid #e2e8f0', borderRadius: '0.25rem', width: '100%', padding: '0.5rem 0.75rem', color: '#4a5568', lineHeight: '1.25', outline: 'none' }}
+                className={styles.input}
                 id="email"
                 type="email"
                 placeholder="Email"
@@ -50,22 +51,22 @@ const LoginPage = () => {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <button
-                style={{ backgroundColor: '#4299e1', color: 'white', fontWeight: 'bold', padding: '0.5rem 1rem', borderRadius: '0.25rem', outline: 'none', cursor: 'pointer' }}
+                className={styles.button}
                 type="button"
                 onClick={handleSendOTP}
               >
                 Send OTP
               </button>
             </div>
-          </div>
+          </>
         ) : (
-          <div style={{ backgroundColor: 'white', boxShadow: '0 4px 6px rgba(0, 0,0, 0.1)', borderRadius: '0.5rem', padding: '1.5rem' }}>
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', color: '#4a5568', fontSize: '0.875rem', fontWeight: 'bold', marginBottom: '0.5rem' }} htmlFor="otp">
+          <>
+            <div className={styles.formGroup}>
+              <label className={styles.label} htmlFor="otp">
                 OTP
               </label>
               <input
-                style={{ boxShadow: '0 1px 3px rgba(0, 0,0, 0.1)', appearance: 'none', border: '1px solid #e2e8f0', borderRadius: '0.25rem', width: '100%', padding: '0.5rem 0.75rem', color: '#4a5568', lineHeight: '1.25', outline: 'none' }}
+                className={styles.input}
                 id="otp"
                 type="text"
                 placeholder="OTP"
@@ -75,14 +76,14 @@ const LoginPage = () => {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <button
-                style={{ backgroundColor: '#4299e1', color: 'white', fontWeight: 'bold', padding: '0.5rem 1rem', borderRadius: '0.25rem', outline: 'none', cursor: 'pointer' }}
+                className={styles.button}
                 type="button"
                 onClick={handleVerifyOTP}
               >
                 Verify OTP
               </button>
             </div>
-          </div>
+          </>
         )}
       </div>
     </div>

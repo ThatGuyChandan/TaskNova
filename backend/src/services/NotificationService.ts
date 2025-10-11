@@ -1,6 +1,6 @@
 import { injectable, inject } from 'inversify';
 import NotificationContext from './NotificationContext.js';
-import TicketEvent from '../interfaces/TicketEvent.js';
+import { TicketEvent } from '../interfaces/TicketEvent.js';
 import { TYPES } from '../types.js';
 
 @injectable()

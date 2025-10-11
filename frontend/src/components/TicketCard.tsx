@@ -2,6 +2,12 @@ import { useSelector } from 'react-redux';
 import { Draggable } from '@hello-pangea/dnd';
 import styles from './TicketCard.module.css';
 
+const priorityClasses = {
+  Low: styles.priorityLow,
+  Medium: styles.priorityMedium,
+  High: styles.priorityHigh,
+};
+
 const TicketCard = ({ ticket, index }) => {
   const { superUserToggle } = useSelector((state) => state.ui);
 
@@ -12,14 +18,9 @@ const TicketCard = ({ ticket, index }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          className={styles.card}
-        >
+          className={`${styles.card} ${priorityClasses[ticket.priority]}`}>
           <h3 className={styles.title}>{ticket.title}</h3>
-          <ul className={styles.description}>
-            {ticket.description.split('\n').map((line, i) => (
-              <li key={i}>{line}</li>
-            ))}
-          </ul>
+          <p className={styles.description}>{ticket.description}</p>
           {superUserToggle && (
             <div className={styles.superuserInfo}>
               <p>Created by: {ticket.createdBy?.email}</p>

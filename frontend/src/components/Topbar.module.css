@@ -14,12 +14,15 @@
   font-weight: 600;
   font-size: 1.1rem;
   color: #1f2937;
+  flex: 1;
 }
 
 .actions {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  justify-content: flex-end;
+  min-width: 200px;
 }
 
 .button {
