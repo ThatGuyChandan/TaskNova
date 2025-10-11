@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleSuperuserModal, toggleNewProjectModal } from '../redux/uiSlice';
 import NotificationDropdown from './NotificationDropdown';
 import styles from './Topbar.module.css';
+import { RootState } from '../redux/store';
 
 const Topbar = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const { activeProject } = useSelector((state) => state.projects);
+  const { user } = useSelector((state: RootState) => state.auth);
+  const { activeProject } = useSelector((state: RootState) => state.projects);
   const [showNotifications, setShowNotifications] = useState(false);
 
   return (

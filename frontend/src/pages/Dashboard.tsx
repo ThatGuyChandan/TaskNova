@@ -8,12 +8,13 @@ import SuperuserModal from '../components/SuperuserModal';
 import NewProjectModal from '../components/NewProjectModal';
 import NewTicketModal from '../components/NewTicketModal';
 import { toggleNewProjectModal, toggleNewTicketModal } from '../redux/uiSlice';
+import { RootState } from '../redux/store';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const { activeProject } = useSelector((state) => state.projects);
-  const { newProjectModal, newTicketModal } = useSelector((state) => state.ui);
+  const { user } = useSelector((state: RootState) => state.auth);
+  const { activeProject } = useSelector((state: RootState) => state.projects);
+  const { newProjectModal, newTicketModal } = useSelector((state: RootState) => state.ui);
 
   useSocket(user?._id, activeProject?._id);
 

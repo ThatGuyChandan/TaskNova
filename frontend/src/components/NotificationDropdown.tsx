@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
 import styles from './NotificationDropdown.module.css';
+import { RootState } from '../redux/store';
 
 const NotificationDropdown = ({ show }) => {
-  const { notifications } = useSelector((state) => state.notifications);
+  const { notifications } = useSelector((state: RootState) => state.notifications);
 
   if (!show) {
     return null;

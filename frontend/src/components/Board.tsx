@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchTickets, updateTicket } from '../redux/ticketsSlice';
 import Column from './Column';
 import styles from './Kanban.module.css';
+import { RootState } from '../redux/store';
 
 const Board = () => {
   const dispatch = useDispatch();
-  const { activeProject } = useSelector((state) => state.projects);
-  const { tickets: allTickets, loading } = useSelector((state) => state.tickets);
+  const { activeProject } = useSelector((state: RootState) => state.projects);
+  const { tickets: allTickets, loading } = useSelector((state: RootState) => state.tickets);
   const [tickets, setTickets] = useState({
     Proposed: [],
     'To-Do': [],

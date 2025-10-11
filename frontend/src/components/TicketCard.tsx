@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Draggable } from '@hello-pangea/dnd';
 import styles from './TicketCard.module.css';
+import { RootState } from '../redux/store';
 
 const priorityClasses = {
   Low: styles.priorityLow,
@@ -9,7 +10,7 @@ const priorityClasses = {
 };
 
 const TicketCard = ({ ticket, index }) => {
-  const { superUserToggle } = useSelector((state) => state.ui);
+  const { superUserToggle } = useSelector((state: RootState) => state.ui);
 
   return (
     <Draggable draggableId={ticket._id} index={index}>

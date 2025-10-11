@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProjects, setActiveProject } from '../redux/projectsSlice';
 import styles from './Sidebar.module.css';
+import { RootState } from '../redux/store';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
-  const { projects, activeProject } = useSelector((state) => state.projects);
+  const { projects, activeProject } = useSelector((state: RootState) => state.projects);
 
   useEffect(() => {
     dispatch(fetchProjects());
@@ -38,19 +39,15 @@ const Sidebar = () => {
         Projects
       </div>
       <nav className={styles.projectsNav}>
-        {projects.length > 0 ? (
-          projects.map((project) => (
-            <button
-              key={project._id}
-              className={`${styles.projectButton} ${activeProject?._id === project._id ? styles.activeProject : styles.inactiveProject}`}
-              onClick={() => handleProjectClick(project)}
-            >
-              {project.name}
-            </button>
-          ))
-        ) : (
-          <div className={styles.noProjects}>No projects yet.</div>
-        )}
+        {projects.map((project) => (
+          <button
+            key={project._id}
+            className={`${styles.projectButton} ${activeProject?._id === project._id ? styles.activeProject : styles.inactiveProject}`}
+            onClick={() => handleProjectClick(project)}
+          >
+            {project.name}
+          </button>
+        ))}
       </nav>
     </aside>
   );

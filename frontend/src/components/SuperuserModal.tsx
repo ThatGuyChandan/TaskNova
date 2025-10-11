@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleSuperuserModal, toggleSuperUserAPI } from '../redux/uiSlice';
 import styles from './SuperuserModal.module.css';
+import { RootState } from '../redux/store';
 
 const SuperuserModal = () => {
   const dispatch = useDispatch();
-  const { superuserModal } = useSelector((state) => state.ui);
+  const { superuserModal } = useSelector((state: RootState) => state.ui);
   const [password, setPassword] = useState('');
 
   const handleToggle = () => {
