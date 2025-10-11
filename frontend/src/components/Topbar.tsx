@@ -21,7 +21,7 @@ const Topbar = () => {
           </button>
           <NotificationDropdown show={showNotifications} />
         </div>
-        {user?.isSuperUser && (
+        {user && user.isSuperUser && (
           <button className={styles.superuserButton} onClick={() => dispatch(toggleSuperuserModal())}>Superuser</button>
         )}
       </div>
