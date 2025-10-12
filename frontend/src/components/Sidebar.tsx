@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchProjects, setActiveProject } from '../redux/projectsSlice';
+import { logoutSuccess } from '../redux/authSlice';
 import styles from './Sidebar.module.css';
 import { RootState } from '../redux/store';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { projects, activeProject } = useSelector((state: RootState) => state.projects);
 
   useEffect(() => {
@@ -14,6 +17,11 @@ const Sidebar = () => {
 
   const handleProjectClick = (project) => {
     dispatch(setActiveProject(project));
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutSuccess());
+    navigate('/login');
   };
 
   return (
@@ -49,6 +57,15 @@ const Sidebar = () => {
           </button>
         ))}
       </nav>
+
+      <div style={{ flexGrow: 1 }}></div>
+
+      <div className={styles.navSection}>
+        <button className={styles.navButton} onClick={handleLogout}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          Logout
+        </button>
+      </div>
     </aside>
   );
 };

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleSuperuserModal, toggleNewProjectModal } from '../redux/uiSlice';
+import { toggleSuperuserModal, toggleNewProjectModal, disableSuperuserAPI } from '../redux/uiSlice';
 import NotificationDropdown from './NotificationDropdown';
 import styles from './Topbar.module.css';
 import { RootState } from '../redux/store';
@@ -8,8 +8,17 @@ import { RootState } from '../redux/store';
 const Topbar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
+  const { superUserToggle } = useSelector((state: RootState) => state.ui);
   const { activeProject } = useSelector((state: RootState) => state.projects);
   const [showNotifications, setShowNotifications] = useState(false);
+
+  const handleSuperuserToggle = () => {
+    if (superUserToggle) {
+      dispatch(disableSuperuserAPI());
+    } else {
+      dispatch(toggleSuperuserModal());
+    }
+  };
 
   return (
     <header className={styles.topbar}>
@@ -22,9 +31,9 @@ const Topbar = () => {
           </button>
           <NotificationDropdown show={showNotifications} />
         </div>
-        {user && user.isSuperUser && (
-          <button className={styles.superuserButton} onClick={() => dispatch(toggleSuperuserModal())}>Superuser</button>
-        )}
+        <button className={styles.superuserButton} onClick={handleSuperuserToggle}>
+            {superUserToggle ? 'Superuser: ON' : 'Superuser: OFF'}
+          </button>
       </div>
     </header>
   );

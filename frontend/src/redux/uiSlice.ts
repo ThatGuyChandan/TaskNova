@@ -21,7 +21,8 @@ const initialState: UIState = {
   newTicketModalStatus: 'open',
 };
 
-export const toggleSuperUserAPI = createAsyncThunk('ui/toggleSuperUser', async (password: string, thunkAPI) => {
+// Thunk to ENABLE superuser mode (with password)
+export const enableSuperuserAPI = createAsyncThunk('ui/enableSuperuser', async (password: string, thunkAPI) => {
   const response = await axiosInstance.post('/superuser/toggle', { password });
   thunkAPI.dispatch(fetchProjects());
   const state = thunkAPI.getState() as any;
@@ -31,13 +32,16 @@ export const toggleSuperUserAPI = createAsyncThunk('ui/toggleSuperUser', async (
   return response.data;
 });
 
+// Thunk toDISABLE superuser mode (no password)
+export const disableSuperuserAPI = createAsyncThunk('ui/disableSuperuser', async (_, thunkAPI) => {
+  const response = await axiosInstance.post('/superuser/toggle', {});
+  return response.data;
+});
+
 const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    toggleSuperUser: (state) => {
-      state.superUserToggle = !state.superUserToggle;
-    },
     toggleNotificationVisibility: (state) => {
       state.notificationVisibility = !state.notificationVisibility;
     },
@@ -56,15 +60,22 @@ const uiSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(toggleSuperUserAPI.fulfilled, (state, action) => {
+      .addCase(enableSuperuserAPI.fulfilled, (state, action) => {
         state.superUserToggle = action.payload.superuserView;
         state.superuserModal = false;
       })
-      .addCase(toggleSuperUserAPI.rejected, (state, action) => {
-        console.error('Failed to toggle super-user mode:', action.error.message);
-        state.superuserModal = false;
+      .addCase(enableSuperuserAPI.rejected, (state, action) => {
+        // Error is handled in the component, just log it here
+        console.error('Failed to enable super-user mode:', action.error.message);
+      })
+      .addCase(disableSuperuserAPI.fulfilled, (state, action) => {
+        state.superUserToggle = action.payload.superuserView;
+      })
+      .addCase(disableSuperuserAPI.rejected, (state, action) => {
+        console.error('Failed to disable super-user mode:', action.error.message);
       });
   },
 });
-export const { toggleSuperUser, toggleNotificationVisibility, toggleSuperuserModal, toggleNewProjectModal, toggleNewTicketModal } = uiSlice.actions;
+
+export const { toggleNotificationVisibility, toggleSuperuserModal, toggleNewProjectModal, toggleNewTicketModal } = uiSlice.actions;
 export default uiSlice.reducer;

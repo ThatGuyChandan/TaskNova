@@ -8,10 +8,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <div className={styles.sidebar}>
         {/* Sidebar children will be rendered by Sidebar component */}
         {children[0]}
-        {/* Support button at the bottom */}
-        <div className={styles.supportButtonContainer}>
-          <button className={styles.supportButton}>Support</button>
-        </div>
       </div>
       {/* Main content area */}
       <div className={styles.mainContent}>

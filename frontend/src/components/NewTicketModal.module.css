@@ -36,6 +36,40 @@
   gap: 1rem;
 }
 
+.label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #22223b;
+  margin-bottom: 0.35rem;
+  margin-top: 1.25rem;
+  letter-spacing: 0.01em;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.7rem 1.1rem;
+  border: 1.5px solid #c9c9c9;
+  border-radius: 0.45rem;
+  font-size: 1.06rem;
+  background: #f8f9fa;
+  margin-bottom: 0.25rem;
+  margin-top: 0;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.input:focus,
+.textarea:focus {
+  border-color: #7c3aed;
+  outline: none;
+  background: #fff;
+  box-shadow: 0 0 0 2px #ede9fe;
+}
+.textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
 .input {
   width: 100%;
   padding: 0.75rem 1rem;

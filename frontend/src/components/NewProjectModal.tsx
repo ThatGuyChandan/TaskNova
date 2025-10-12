@@ -21,17 +21,21 @@ const NewProjectModal = ({ isOpen, onClose }) => {
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
-          <h3 className={styles.modalTitle}>Create New Project</h3>
+          <h3 className={`${styles.modalTitle} word-break-wrap`}>Create New Project</h3>
         </div>
         <div className={styles.modalBody}>
+          <label className={styles.label} htmlFor="projectName">Project Name</label>
           <input
+            id="projectName"
             type="text"
             className={styles.input}
             placeholder="Project Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+          <label className={styles.label} htmlFor="projectDescription">Project Description</label>
           <textarea
+            id="projectDescription"
             className={`${styles.input} ${styles.textarea}`}
             placeholder="Project Description"
             value={description}

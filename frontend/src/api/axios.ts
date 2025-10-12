@@ -3,7 +3,7 @@ import { store } from '../redux/store';
 import { logoutSuccess } from '../redux/authSlice';
 
 const axiosInstance = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 axiosInstance.interceptors.request.use(

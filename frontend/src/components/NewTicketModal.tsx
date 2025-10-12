@@ -22,17 +22,21 @@ const NewTicketModal = ({ isOpen, onClose, projectId }) => {
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
-          <h3 className={styles.modalTitle}>Create New Ticket</h3>
+          <h3 className={`${styles.modalTitle} word-break-wrap`}>Create New Ticket</h3>
         </div>
         <div className={styles.modalBody}>
+          <label className={styles.label} htmlFor="ticketTitle">Ticket Title</label>
           <input
+            id="ticketTitle"
             type="text"
             className={styles.input}
             placeholder="Ticket Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
+          <label className={styles.label} htmlFor="ticketDescription">Ticket Description</label>
           <textarea
+            id="ticketDescription"
             className={`${styles.input} ${styles.textarea}`}
             placeholder="Ticket Description"
             value={description}
